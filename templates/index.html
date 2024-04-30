@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+
+
+
+<style>
+    /* Add some margin or padding to the top of the container */
+    .container {
+        margin-top: 20px; /* Adjust the value as needed */
+    }
+     .card {
+        margin-bottom: 20px; /* Adjust the value to add desired space */
+    }
+</style>
+
+
+
+
+<form method="GET" action="{% url 'lastapp:index' %}">
+    <input type="text" name="q" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+
+<select name="category" onchange="this.form.submit()">
+    <option value="">All Categories</option>
+    {% for category in categories %}
+        <option value="{{ category.name }}">{{ category.name }}</option>
+    {% endfor %}
+</select>
+
+
+
+<div class="container">
+    <div class="row">
+         {% if movie_list %}
+        {% for movie in movie_list %}
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{movie.poster.url}}" alt="Card image cap" width="250px" height="250px">
+  <div class="card-body">
+    <h5 class="card-title">{{movie.title}}</h5>
+    <p class="card-text">{{movie.description}}</p>
+    <a href="{% url 'lastapp:detail' movie.id %}" class="btn btn-primary">View Details</a>
+
+  </div>
+</div>
+        </div>
+        {% endfor %}
+         {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

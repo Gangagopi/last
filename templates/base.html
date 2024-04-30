@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    Online Movie Store
+  </a>
+     <a class="nav-link click-scroll" href="#section_1">Home</a>
+    {% if user.is_authenticated %}
+    <li> Hello {{user.username}}</li>
+    <li><a href="{% url 'lastapp:add_movie' %}" class="btn btn-primary">Add Movie</a></li>
+    <li><a class="nav-link click-scroll" href="credentials/logout">Logout</a></li>
+    <li><a class="nav-link click-scroll" href="credentials/user_profile">User Profile</a></li>
+     {% else %}
+    <li class="nav-item"><a class="nav-link click-scroll" href="credentials/register">register</a></li>
+    <li class="nav-item"><a class="nav-link click-scroll" href="credentials/login">login</a></li>
+      {% endif %}
+
+
+
+
+
+</nav>
+{% block body %}
+{% endblock %}
+<!--hello-->
+<!--{% for i in movie_list %}-->
+<!--<a href="{% url 'lastapp:detail' i.id%}">{{i.title}}-&#45;&#45;&ndash;&gt;{{i.description}}<br>-->
+{% endfor %}
+</body>
+</html>

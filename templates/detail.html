@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{movie.poster.url}}" width="300" height="300">
+        </div>
+
+<div class="col-md-6">
+
+
+<p>Title: {{movie.title}}</p>
+    <p>Desc: {{movie.description}}</p>
+    <p>Actors: {{movie.actors}}</p>
+    <p>Release_date: {{movie.release_date}}</p>
+    <p>Category: {{movie.category}}</p>
+<!--{{movie.trailer_link}}<br>-->
+<p>Trailer Link: <a href="{{ movie.trailer_link }}">Watch Trailer</a></p>
+
+<h3>Reviews</h3>
+            {% for review in reviews %}
+                <p>{{ review.user.username }} says:</p>
+                <p>Rating: {{ review.rating }}</p>
+                <p>{{ review.comment }}</p>
+            {% empty %}
+                <p>No reviews yet.</p>
+            {% endfor %}
+            <h3>Add Your Review</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ review_form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+
+
+<a class="btn btn-warning" href="{% url 'lastapp:update' movie.id %}">update</a>
+    <a class="btn btn-danger" href="{% url 'lastapp:delete' movie.id %}">delete</a>
+</div>
+    </div>
+</div>
+{% endblock %}
+
